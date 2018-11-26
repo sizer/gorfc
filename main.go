@@ -23,7 +23,7 @@ func fetchRfcDetail(rfcNo string) {
 	}
 }
 
-func httpGetRfcDetail(rfcNo string) string {
+func httpGetRfcDetail(rfcNo string) {
 	res, err := http.Get("https://www.rfc-editor.org/rfc/rfc" + rfcNo + ".txt")
 	if err != nil {
 		fmt.Println("find error." + err.Error())
@@ -36,7 +36,6 @@ func httpGetRfcDetail(rfcNo string) string {
 	fmt.Printf("%s", b)
 	
 	makeCache("RFC" + rfcNo + ".txt", b)
-	return string(b)
 }
 
 func makeCache(filename string, data []byte) {
