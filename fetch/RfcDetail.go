@@ -9,7 +9,7 @@ import (
 
 // RfcDetail will https://www.rfc-editor.orgから取得orCacheから取得する
 func RfcDetail(rfcNo string) {
-	var cacheName = "RFC" + rfcNo + ".txt"
+	var cacheName = getCacheName(rfcNo)
 
 	if checkIfCached(cacheName) {
 		readCache(cacheName)
@@ -30,7 +30,11 @@ func httpGetRfcDetail(rfcNo string) {
 	}
 	fmt.Printf("%s", b)
 	
-	makeCache("RFC" + rfcNo + ".txt", b)
+	makeCache(getCacheName(rfcNo), b)
+}
+
+func getCacheName(rfcNo string) string {
+	return "RFC" + rfcNo + ".txt"
 }
 
 func makeCache(filename string, data []byte) {
