@@ -10,6 +10,7 @@ import (
 
 // RfcDetail will https://www.rfc-editor.orgから取得orCacheから取得する
 func RfcDetail(rfcNo string) {
+	fmt.Println("RfcDetail start!")
 	var cacheName = getCacheName(rfcNo)
 
 	if checkIfCached(cacheName) {
@@ -27,6 +28,7 @@ func RfcDetail(rfcNo string) {
 }
 
 func httpGetRfcDetail(rfcNo string) (io.ReadCloser, error) {
+	fmt.Println("httpGetRfcDetail start!")
 	res, err := http.Get("https://www.rfc-editor.org/rfc/rfc" + rfcNo + ".txt")
 	if err != nil {
 		fmt.Println("find error." + err.Error())
@@ -41,10 +43,12 @@ func getCacheName(rfcNo string) string {
 }
 
 func makeCache(filename string, data []byte) {
-	ioutil.WriteFile(getCacheFilePath(filename), data, 0644)	
+	fmt.Println("makeCache start!")
+	ioutil.WriteFile(getCacheFilePath(filename), data, 0644)
 }
 
 func readCache(cacheName string) {
+	fmt.Println("readCache start!")
 	b, err := ioutil.ReadFile(getCacheFilePath(cacheName))
 	if err != nil {
 		fmt.Println(err)
